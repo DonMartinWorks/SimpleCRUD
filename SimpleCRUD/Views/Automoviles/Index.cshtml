@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SimpleCRUD.Models.Automovil>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create"><i class="fa-solid fa-square-plus"></i> Crear nuevo automovil</a>
+</p>
+<table class="d-lg-table table-bordered" id="tablaAutomoviles" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Kilometers)
+            </th class="text-center">
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th class="text-center">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Kilometers)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="text-black"><i class="fa-solid fa-pencil"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="text-black"><i class="fa-solid fa-magnifying-glass"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-black"><i class="fa-solid fa-trash-can"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            //Llamar a datatable
+            $('#tablaAutomoviles').DataTable({
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json"
+                }
+            });
+        });
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
